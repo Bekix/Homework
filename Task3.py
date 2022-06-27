@@ -5,11 +5,10 @@ def zeros(n):
         s *= i
     s = str(s)
     count = 0
-    for i in range(-1, -len(s)+1, -1):
-        if s[i] == '0':
-            count += 1
-        else:
-            break
+    i = 1
+    while s % 10 ** i == 0:
+        i += 1
+        count += 1
     return count
 
 assert zeros(0) == 0
