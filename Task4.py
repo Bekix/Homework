@@ -1,33 +1,25 @@
-#Task 4
+import itertools
+
 def bananas(s) -> set:
     result = set()
     if s == 'banana':
         result.add(s)
-    for i in range(len(s)):
-        for j in range(i, len(s)):
-            for h in range(j, len(s)):
-                l = ''
-                p = 0
-                while p != len(s):
-                    if p != i and p != h and p != j:
-                        l += s[p]
-                    elif p == i:
-                        l += '-'
-                    elif p == l:
-                        l += '-'
-                    else:
-                        l += '-'
-                    p += 1
-                string = l
-                l = l.replace('-', '')
-                if l == 'banana':
-                    result.add(string)
+        return result
+    A = [i for i in range(len(s))]
+    Ar = list(itertools.combinations(A, 6))
+    for i in Ar:
+        p = ''
+        string = ''
+        l = [0] * len(s)
+        for j in i:
+            p += s[j]
+        if p == 'banana':
+            for g1 in i:
+                l[g1] = s[g1]
+            for g2 in range(len(l)):
+                if l[g2] != 0:
+                    string += s[g2]
+                else:
+                    string += '-'
+            result.add(string)
     return result
-
-assert bananas("banann") == set()
-assert bananas("banana") == {"banana"}
-assert bananas("bbananana") == {"b-an--ana", "-banana--", "-b--anana", "b-a--nana", "-banan--a",
-                     "b-ana--na", "b---anana", "-bana--na", "-ba--nana", "b-anan--a",
-                     "-ban--ana", "b-anana--"}
-assert bananas("bananaaa") == {"banan-a-", "banana--", "banan--a"}
-assert bananas("bananana") == {"ban--ana", "ba--nana", "bana--na", "b--anana", "banana--", "banan--a"}
